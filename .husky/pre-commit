@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo '🏗️👷 Styling, testing and building your project before committing'
+
+# Check staged files for formatting and linting errors.
+npx lint-staged --concurrent false || 
+(
+        echo '❌❌❌ Errors, were found in your staged file(s), make the changes requested above. ❌❌❌'
+        false;
+)
+
+# If the above is success, try running a build.
+echo '👷‍♂️🔨 Ok, trying to build... 👷‍♂️🔨'
+
+npm run build || 
+(
+        echo '❌👷‍♂️🔨❌ Failed to build, please run "npm run build" and fixed the errors in the terminal. ❌👷‍♂️🔨❌'
+        false;
+)
+
+# If it builds, commit changes.
+echo '✅✅✅✅ Committing this now. ✅✅✅✅'
