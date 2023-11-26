@@ -1,10 +1,11 @@
-import React from 'react';
+import Container from '@components/Container';
+import NavBar from '@components/NavBar';
 
 const Home = () => {
   return (
-    <div>
-      <p>Hello things</p>
-    </div>
+    <Container className="my-4">
+      <NavBar />
+    </Container>
   );
 };
 
