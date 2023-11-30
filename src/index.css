@@ -8,14 +8,11 @@
 
 @layer components {
   .btn-primary {
-    @apply h-[48px] flex items-center justify-center gap-x-2 rounded-[100px] px-[12px] py-[0.625rem] text-[16px] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:brightness-90 w-max disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:brightness-100;
+    @apply h-[48px] flex items-center justify-center gap-x-2 rounded-[100px] px-[24px] py-[0.625rem] text-[16px] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:brightness-90 w-max disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:brightness-100;
   }
 
   .input-primary {
-    @apply border px-[27px] py-[18px] rounded-[10px] block w-full;
-  }
-  .input-primary::placeholder {
-    @apply text-[15px] text-sub-text;
+    @apply bg-grey-50 h-[48px] w-full px-[10px] py-[18px] rounded-[12px] block;
   }
 }
 

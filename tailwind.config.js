@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         accent: '#131316',
+        'grey-50': '#EFF1F6',
         'grey-400': '#56616B',
       },
       fontFamily: {

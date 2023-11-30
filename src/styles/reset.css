@@ -60,10 +60,3 @@ input[type='number'] {
 input[readonly]:focus {
   color: initial;
 }
-
-/*Capitalize date placeholder*/
-input[type='date'] {
-  text-transform: uppercase;
-  font-size: 10px;
-  color: #a0aec0;
-}

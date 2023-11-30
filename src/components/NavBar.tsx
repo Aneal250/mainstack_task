@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import {
   analyticsIcon,
   appsIcon,
@@ -10,8 +11,11 @@ import {
   revenueIcon,
 } from '@images/index';
 import { Link } from 'react-router-dom';
+import { useGetUserDetails } from '@hooks/query/useFetchData';
 
 const NavBar = () => {
+  const { data } = useGetUserDetails();
+
   return (
     <nav className="flex items-center justify-between h-[64px] rounded-[100px] shadow px-[24px]">
       <div>
@@ -49,7 +53,7 @@ const NavBar = () => {
           className="flex items-center rounded-[100px] gap-x-3 bg-[#EFF1F6] !h-[40px] !w-[81px] px-1 "
         >
           <div className="flex items-center justify-center h-[32px] w-[32px] bg-accent text-white rounded-full">
-            OJ
+            {`${data?.first_name[0]}${data?.last_name[0]}`}
           </div>
           <img src={menu} alt="h-[32px] w-[32px]" />
         </button>

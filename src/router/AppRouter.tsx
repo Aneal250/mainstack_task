@@ -1,15 +1,16 @@
-import { LazyExoticComponent, Suspense, lazy } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Home from '@pages/Home';
 
 interface IRoutes {
   path: string;
-  component: LazyExoticComponent<React.FC>;
+  component: React.ComponentType;
 }
 
 const routes: IRoutes[] = [
   {
     path: '/',
-    component: lazy(() => import('@pages/Home')),
+    component: Home,
   },
 ];
 
@@ -17,17 +18,9 @@ const AppRouter = () => {
   return (
     <Routes>
       {routes.map(({ path, component: Component }) => (
-        <Route
-          key={path}
-          path={path}
-          element={
-            <Suspense fallback={<span>Loading...</span>}>
-              <Component />
-            </Suspense>
-          }
-        />
+        <Route key={path} path={path} element={<Component />} />
       ))}
-      <Route path="*" element={<span>page not found</span>} />
+      <Route path="*" element={<span>Page not found</span>} />
     </Routes>
   );
 };
