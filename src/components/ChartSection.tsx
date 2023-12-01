@@ -1,8 +1,10 @@
 import { line } from '@images/index';
 import { useGetUserWallet } from '@hooks/query/useFetchData';
+import formatCurrency from '@helpers/formateCurrency';
 import Button from './Button';
 import Chart from './Chart';
 import DisplayCard from './DisplayCard';
+import LoadingText from './LoaderText';
 
 const ChartSection = () => {
   const { data, isLoading } = useGetUserWallet();
@@ -14,7 +16,13 @@ const ChartSection = () => {
           <div className="flex">
             <div className="flex-col">
               <p className="text-grey-400">Available Balance</p>
-              <h6 className="text-accent text-[36px] font-bold">USD 120,500.00</h6>
+              {isLoading ? (
+                <LoadingText className="h-[0.25rem]  w-[6rem] my-4" />
+              ) : (
+                <h6 className="text-accent text-[36px] font-bold">
+                  {formatCurrency(data?.balance, 'USD')}
+                </h6>
+              )}
             </div>
           </div>
           <Button className="!h-[52px] !w-[167px] !px-[28px]  text-white">Withdraw</Button>

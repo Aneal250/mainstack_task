@@ -1,21 +1,44 @@
 import React, { useState } from 'react';
 import { close } from '@images/index';
 import dayjs from 'dayjs';
+import { Items } from 'src/types/data';
 import Button from './Button';
 import DateButton from './button/DateButton';
+import SelectInput from './inputs/SelectInput';
 
 interface FilterProps {
   closeModal: (value: boolean) => void;
+  transactionType: Items[];
+  setTransactionType: React.Dispatch<React.SetStateAction<Items[]>>;
+  setIsFilter: React.Dispatch<React.SetStateAction<boolean>>;
+  clearFilter: () => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ closeModal }) => {
+const Filter: React.FC<FilterProps> = ({
+  closeModal,
+  transactionType,
+  setTransactionType,
+  setIsFilter,
+  clearFilter,
+}) => {
   const [tempDate, setTempDate] = useState<{ from: string; to: string }>({
     from: '',
     to: '',
   });
 
+  const TransactionType: Items[] = [
+    {
+      id: 1,
+      type: 'deposit',
+    },
+    {
+      id: 2,
+      type: 'withdrawal',
+    },
+  ];
+
   return (
-    <div className="bg-white w-456px] h-[830px] rounded-[20px] p-4">
+    <div className="bg-white w-456px] h-[830px] rounded-[20px] p-4 relative">
       <div className="flex items-center justify-between">
         <p className="text-accent font-bold text-[24px]">Filter</p>
         <div onClick={() => closeModal(false)} aria-hidden="true" className="cursor-pointer">
@@ -38,7 +61,7 @@ const Filter: React.FC<FilterProps> = ({ closeModal }) => {
         </Button>
       </div>
 
-      <p className="mt-12 mb-4">Data Range</p>
+      <p className="mt-12 mb-4 text-accent font-semibold">Data Range</p>
       <div className="flex w-full  justify-between gap-x-4">
         <DateButton
           value={tempDate.from}
@@ -57,13 +80,28 @@ const Filter: React.FC<FilterProps> = ({ closeModal }) => {
           }
         />
       </div>
+      <div>
+        <SelectInput
+          items={TransactionType}
+          label="Transaction Type"
+          placeholder="Select Transaction Type"
+          itemsSelected={transactionType}
+          setItemsSelected={setTransactionType}
+        />
+      </div>
 
       {/* Buttonn */}
-      <div className="flex gap-3 mt-8 mx-auto">
-        <Button className="!bg-transparent !w-full  text-xs !border !border-grey-50 !text-accent">
+      <div className="flex gap-3 mt-8 mx-auto w-[95%] absolute bottom-4">
+        <Button
+          className="!bg-transparent !w-full  text-xs !border !border-grey-50 !text-accent"
+          onClick={() => clearFilter()}
+        >
           Clear
         </Button>
-        <Button className="!bg-accent !w-full  text-xs !border !border-grey-50 !text-white">
+        <Button
+          className="!bg-accent !w-full  text-xs !border !border-grey-50 !text-white"
+          onClick={() => setIsFilter(true)}
+        >
           Apply
         </Button>
       </div>

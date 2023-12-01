@@ -1,4 +1,4 @@
-export interface Transactoin {
+export interface TransactionTypes {
   amount: number;
   metadata: {
     name?: string;
@@ -12,4 +12,9 @@ export interface Transactoin {
   status: string;
   type: string;
   date: string;
+}
+
+export interface Items {
+  id: number;
+  type: string;
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import formatCurrency from '@helpers/formateCurrency';
 import { arrowDownRed, arrowUpGreen } from '@images/index';
-import { Transactoin } from 'src/types/data';
+import { TransactionTypes } from 'src/types/data';
 import classNames from 'classnames';
 import LoadingText from './LoaderText';
 
 interface TransactionProps {
-  transaction: Transactoin;
+  transaction: TransactionTypes;
   loading: boolean;
 }
 

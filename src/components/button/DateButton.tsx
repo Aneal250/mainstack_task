@@ -44,7 +44,7 @@ const DateButton: React.FC<DateButtonProps> = ({
           />
           <button
             type="button"
-            onClick={() => setOpen(true)}
+            onClick={() => setOpen(!open)}
             className={`absolute top-1 bottom-1 w-5 grid place-content-center right-2 bg-grey-50 ${className}`}
           >
             <img src={arrowDown} alt="" className="w-[16px]" />

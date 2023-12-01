@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef, useEffect } from 'react';
 
 const useDetectClickOut = <T extends HTMLElement>() => {
   const [open, setOpen] = useState<boolean>(false);
-  const triggerRef = useRef<HTMLButtonElement | null>(null); // Trigger element must be a button
-  const nodeRef = useRef<T | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null | any>(null); // Trigger element must be a button
+  const nodeRef = useRef<T | null | any>(null);
 
   useEffect(() => {
     const handleDetectClickOut = (event: MouseEvent) => {

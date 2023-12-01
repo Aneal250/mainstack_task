@@ -1,7 +1,8 @@
+/* eslint-disable no-else-return */
 import { useState } from 'react';
 import { useGetUserTransactions } from '@hooks/query/useFetchData';
 import { arrowDown, download } from '@images/index';
-import { Transactoin } from 'src/types/data';
+import { TransactionTypes, Items } from 'src/types/data';
 import Button from './Button';
 import Transaction from './Transaction';
 import ModalWrapper from './modal/ModalWrapper';
@@ -11,13 +12,31 @@ const TransactionSection = () => {
   const [showFilter, setShowFilter] = useState(false);
 
   const { data, isLoading } = useGetUserTransactions();
+  const [transactionType, setTransactionType] = useState<Items[]>([]);
+  const [isFilter, setIsFilter] = useState(false);
+
+  const handleFilter = () => {
+    if (isFilter && transactionType.length > 0) {
+      return data?.filter((transaction: TransactionTypes) =>
+        transactionType.some((type) => type.type === transaction.type)
+      );
+    }
+    return data;
+  };
+
+  const clearFilter = () => {
+    setTransactionType([]);
+    setIsFilter(false);
+  };
+
+  const filteredTransactions = handleFilter();
 
   return (
     <div className="mt-8">
       {/* header */}
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <p className="font-bold text-[24px]">{data?.length} Transactions</p>
+          <p className="font-bold text-[24px]">{filteredTransactions?.length} Transactions</p>
           <p className="text-grey-400 text-[14px]">Your transactions for the last 7 days</p>
         </div>
         <div className="flex items-center gap-x-4">
@@ -33,14 +52,22 @@ const TransactionSection = () => {
       {/* Card */}
 
       <div className="mt-8">
-        {data?.map((transaction: Transactoin, index: number) => (
+        {filteredTransactions?.map((transaction: TransactionTypes, index: number) => (
           <Transaction key={`${index + 1}`} transaction={transaction} loading={isLoading} />
         ))}
       </div>
       <ModalWrapper
         show={showFilter}
         setShow={setShowFilter}
-        component={<Filter closeModal={() => setShowFilter(false)} />}
+        component={
+          <Filter
+            closeModal={() => setShowFilter(false)}
+            transactionType={transactionType}
+            setTransactionType={setTransactionType}
+            setIsFilter={setIsFilter}
+            clearFilter={clearFilter}
+          />
+        }
       />
     </div>
   );
